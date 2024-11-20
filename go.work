@@ -1,6 +1,8 @@
 go 1.22.7
 
 use (
+	./chain-caller
 	./node-caller
+	./rmb-peer
 	./utils
 )
