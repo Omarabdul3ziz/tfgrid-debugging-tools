@@ -25,7 +25,7 @@ type Resp struct {
 }
 
 const (
-	targetVersion = "3.12.8"
+	targetVersion = "3.12.10"
 	mne           = ""
 )
 
@@ -55,8 +55,10 @@ func main() {
 	}
 
 	chainMan := substrate.NewManager("wss://tfchain.grid.tf/ws")
+	// ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	// defer cancel()
 	rmbClient, err := peer.NewRpcClient(context.Background(), mne, chainMan,
-		peer.WithRelay("wss://relay.grid.tf"),
+		peer.WithRelay("wss://relay.ninja.tf"),
 		peer.WithSession("rmb-call-bin"))
 	if err != nil {
 		log.Fatal(err)
@@ -74,7 +76,7 @@ func main() {
 			var res struct {
 				Zos string
 			}
-			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 			defer cancel()
 
 			err := rmbClient.Call(ctx, uint32(node.TwinId), "zos.system.version", nil, &res)
@@ -82,7 +84,7 @@ func main() {
 				return
 			}
 			all++
-			if res.Zos == "3.12.9" {
+			if res.Zos == targetVersion {
 				// fmt.Println("nodeId", node.NodeId, "version", res.Zos)
 				mu.Lock()
 				updated++

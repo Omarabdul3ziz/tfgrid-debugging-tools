@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Omarabdul3ziz/tfgrid-debugging-tools/utils"
+	"github.com/Omarabdulaziz/tfgrid_debugging_tools/utils"
 	substrate "github.com/threefoldtech/tfchain/clients/tfchain-client-go"
 	"github.com/threefoldtech/tfgrid-sdk-go/rmb-sdk-go/peer"
 )
@@ -36,7 +36,7 @@ func run() error {
 		return errors.New("invalid mnemonic")
 	}
 
-	chain, relay, err := utils.GetUrlsForEnv(net)
+	chain, relay, err := utils.GetUrlsForNet(net)
 	if err != nil {
 		return err
 	}
